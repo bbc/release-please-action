@@ -21,11 +21,6 @@ const DEFAULT_GITHUB_API_URL = 'https://api.github.com';
 const DEFAULT_GITHUB_GRAPHQL_URL = 'https://api.github.com';
 const DEFAULT_GITHUB_SERVER_URL = 'https://github.com';
 
-interface Proxy {
-  host: string;
-  port: number;
-}
-
 interface ActionInputs {
   token: string;
   repoUrl: string;
@@ -134,13 +129,9 @@ export async function main() {
 
 function getGitHubInstance(inputs: ActionInputs): Promise<GitHub> {
   const [owner, repo] = inputs.repoUrl.split('/');
-  let proxy: Proxy | undefined = undefined;
+  let proxy: string | undefined = undefined;
   if (inputs.proxyServer) {
-    const [host, port] = inputs.proxyServer.split(':');
-    proxy = {
-      host,
-      port: parseInt(port),
-    };
+    proxy = inputs.proxyServer
   }
 
   const githubCreateOpts = {

@@ -272,7 +272,7 @@ describe('release-please-action', () => {
     it('allows specifying network options', async () => {
       restoreEnv = mockInputs({
         'target-branch': 'dev',
-        'proxy-server': 'some-host:9000',
+        'proxy-server': 'http://some-host:9000',
         'github-api-url': 'https://my-enterprise-host.local/api',
         'github-graphql-url': 'https://my-enterprise-host.local/graphql',
       });
@@ -290,10 +290,7 @@ describe('release-please-action', () => {
         sinon.match({
           apiUrl: 'https://my-enterprise-host.local/api',
           graphqlUrl: 'https://my-enterprise-host.local',
-          proxy: {
-            host: 'some-host',
-            port: 9000,
-          },
+          proxy: 'http://some-host:9000',
           defaultBranch: 'dev',
         })
       );
